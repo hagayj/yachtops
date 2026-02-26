@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yacht Ops - The Ultimate Maritime Companion</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;600;800&family=Inter:wght@300;400;600;800&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0056D2;
+            --primary-light: #4A90E2;
+            --primary-dark: #003B95;
+            --secondary: #00E5FF;
+            --dark: #0B192C;
+            --light: #F8FBFE;
+            --white: #FFFFFF;
+            --glass-bg: rgba(255, 255, 255, 0.85);
+            --glass-border: rgba(255, 255, 255, 0.2);
+            --shadow: 0 10px 40px -10px rgba(0, 86, 210, 0.15);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html[lang="en"] {
+            font-family: 'Inter', sans-serif;
+            direction: ltr;
+        }
+
+        html[lang="he"] {
+            font-family: 'Heebo', sans-serif;
+            direction: rtl;
+        }
+
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            overflow-x: hidden;
+        }
+
+        /* Language Toggle Classes */
+        html[lang="en"] .he {
+            display: none !important;
+        }
+
+        html[lang="he"] .en {
+            display: none !important;
+        }
+
+        /* Navbar */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 1.5rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--glass-border);
+            z-index: 1000;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--primary-dark);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        .logo svg {
+            width: 30px;
+            height: 30px;
+            fill: var(--primary);
+        }
+
+        /* Lang Toggler */
+        .lang-switch {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            padding: 0.5rem 1.2rem;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-family: inherit;
+        }
+
+        .lang-switch:hover {
+            background: var(--primary);
+            color: var(--white);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 86, 210, 0.2);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 100px 5% 50px;
+            background: linear-gradient(135deg, #F8FBFE 0%, #E6F0FA 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Abstract shapes */
+        .shape-1 {
+            position: absolute;
+            top: -100px;
+            right: -100px;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, var(--secondary) 0%, transparent 70%);
+            opacity: 0.15;
+            border-radius: 50%;
+            z-index: 0;
+            filter: blur(40px);
+        }
+
+        .shape-2 {
+            position: absolute;
+            bottom: -150px;
+            left: -50px;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, var(--primary-light) 0%, transparent 70%);
+            opacity: 0.15;
+            border-radius: 50%;
+            z-index: 0;
+            filter: blur(60px);
+        }
+
+        .hero-content {
+            flex: 1;
+            z-index: 1;
+            max-width: 600px;
+        }
+
+        .hero-content h1 {
+            font-size: 4rem;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            color: var(--dark);
+            background: linear-gradient(90deg, var(--dark) 0%, var(--primary-dark) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-content p {
+            font-size: 1.25rem;
+            color: #4B5563;
+            margin-bottom: 2.5rem;
+            line-height: 1.6;
+            font-weight: 400;
+        }
+
+        .download-btn {
+            display: inline-flex;
+            align-items: center;
+            background: var(--dark);
+            color: var(--white);
+            padding: 1rem 2rem;
+            border-radius: 14px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 25px rgba(11, 25, 44, 0.2);
+            gap: 12px;
+        }
+
+        .download-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(11, 25, 44, 0.3);
+            background: var(--primary-dark);
+        }
+
+        .download-btn svg {
+            width: 24px;
+            height: 24px;
+            fill: currentColor;
+        }
+
+        .hero-image {
+            flex: 1;
+            z-index: 1;
+            display: flex;
+            justify-content: center;
+            position: relative;
+        }
+
+        /* Phone mockup styling */
+        .phone-mockup {
+            width: 300px;
+            height: 600px;
+            background: var(--white);
+            border-radius: 40px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            border: 8px solid #333;
+            position: relative;
+            overflow: hidden;
+            animation: float 6s ease-in-out infinite;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(180deg, var(--primary) 0%, var(--primary-dark) 100%);
+        }
+
+        .phone-mockup::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            width: 40%;
+            height: 25px;
+            background: #333;
+            border-bottom-left-radius: 15px;
+            border-bottom-right-radius: 15px;
+            z-index: 2;
+        }
+
+        .mockup-content {
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .mockup-content svg {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 20px;
+            fill: white;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-20px);
+            }
+
+            100% {
+                transform: translateY(0px);
+            }
+        }
+
+        /* Features Section */
+        .features {
+            padding: 100px 5%;
+            background: var(--white);
+            position: relative;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            color: var(--dark);
+            margin-bottom: 1rem;
+        }
+
+        .section-header p {
+            color: #6B7280;
+            max-width: 600px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .feature-card {
+            background: var(--white);
+            padding: 2.5rem 2rem;
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            border: 1px solid rgba(0, 0, 0, 0.03);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--primary);
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+            transform-origin: left;
+        }
+
+        html[lang="he"] .feature-card::before {
+            transform-origin: right;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px -10px rgba(0, 86, 210, 0.2);
+        }
+
+        .feature-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .icon-box {
+            width: 60px;
+            height: 60px;
+            background: #EFF6FF;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover .icon-box {
+            background: var(--primary);
+            color: var(--white);
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .icon-box svg {
+            width: 30px;
+            height: 30px;
+            fill: currentColor;
+        }
+
+        .feature-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--dark);
+        }
+
+        .feature-desc {
+            color: #6B7280;
+            line-height: 1.6;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: var(--white);
+            padding: 4rem 5% 2rem;
+            text-align: center;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .footer-logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--white);
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .footer-links a {
+            color: #9CA3AF;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--white);
+        }
+
+        .copyright {
+            color: #6B7280;
+            margin-top: 2rem;
+            font-size: 0.9rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 2rem;
+            width: 100%;
+            max-width: 1200px;
+        }
+
+        /* Call to Action */
+        .cta {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            padding: 80px 5%;
+            text-align: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta h2 {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            font-weight: 800;
+            position: relative;
+            z-index: 2;
+        }
+
+        .cta p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto 2.5rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .cta-bg {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%;
+            height: 100%;
+            opacity: 0.1;
+            background: url('data:image/svg+xml;utf8,<svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><path d="M50 0 L100 50 L50 100 L0 50 Z" fill="white"/></svg>') repeat;
+            background-size: 50px 50px;
+            z-index: 1;
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .hero {
+                flex-direction: column;
+                text-align: center;
+                padding-top: 120px;
+            }
+
+            .hero-content h1 {
+                font-size: 2.8rem;
+            }
+
+            .phone-mockup {
+                width: 260px;
+                height: 520px;
+                margin-top: 50px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav>
+        <a href="#" class="logo">
+            <!-- Anchor Icon -->
+            <svg viewBox="0 0 24 24">
+                <path
+                    d="M12,2A2,2 0 0,0 10,4A2,2 0 0,0 12,6A2,2 0 0,0 14,4A2,2 0 0,0 12,2M12,7L10,7L10,10.66L7.81,14.46C7.2,14.42 6.6,14.54 6.06,14.82L3.62,9.94L4.5,9.5L2.27,5L1.83,5.22L1.83,6.2C1.29,6.58 0.94,7.22 0.94,7.94V10.87C0.94,11.85 1.56,12.7 2.45,13.04L4.89,17.92L4.05,18.34L4.95,20.13L11,17.11V22H13V17.11L19.05,20.13L19.95,18.34L19.11,17.92L21.55,13.04C22.44,12.7 23.06,11.85 23.06,10.87V7.94C23.06,7.22 22.71,6.58 22.17,6.2L22.17,5.22L21.73,5L19.5,9.5L20.38,9.94L17.94,14.82C17.4,14.54 16.8,14.42 16.19,14.46L14,10.66L14,7L12,7Z" />
+            </svg>
+            Yacht Ops
+        </a>
+        <button class="lang-switch" onclick="toggleLanguage()">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"></circle>
+                <path
+                    d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z">
+                </path>
+            </svg>
+            <span class="en">עברית</span>
+            <span class="he">English</span>
+        </button>
+    </nav>
+
+    <section class="hero">
+        <div class="shape-1"></div>
+        <div class="shape-2"></div>
+        <div class="hero-content">
+            <h1 class="en">The Ultimate Maritime Companion</h1>
+            <h1 class="he">השותף האולטימטיבי שלך בים</h1>
+
+            <p class="en">Managing a yacht requires precision, organization, and teamwork. Yacht Ops brings all your
+                essential operations into one seamless digital platform, designed for captains, crew, and owners alike.
+            </p>
+            <p class="he">ניהול יאכטה דורש דיוק, סדר, ועבודת צוות. אוניקס מביאה את כל הפעולות ההכרחיות לפלטפורמה
+                דיגיטלית חלקה, המיועדת לקפטנים, אנשי צוות ובעלי ספינות כאחד.</p>
+
+            <a href="#" class="download-btn">
+                <svg viewBox="0 0 384 512">
+                    <path
+                        d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z" />
+                </svg>
+                <span class="en">Download on the App Store</span>
+                <span class="he">הורד ישירות מחנות האפליקציות</span>
+            </a>
+        </div>
+        <div class="hero-image">
+            <div class="phone-mockup">
+                <div class="mockup-content">
+                    <!-- Anchor in mockup -->
+                    <svg viewBox="0 0 24 24">
+                        <path
+                            d="M12,2A2,2 0 0,0 10,4A2,2 0 0,0 12,6A2,2 0 0,0 14,4A2,2 0 0,0 12,2M12,7L10,7L10,10.66L7.81,14.46C7.2,14.42 6.6,14.54 6.06,14.82L3.62,9.94L4.5,9.5L2.27,5L1.83,5.22L1.83,6.2C1.29,6.58 0.94,7.22 0.94,7.94V10.87C0.94,11.85 1.56,12.7 2.45,13.04L4.89,17.92L4.05,18.34L4.95,20.13L11,17.11V22H13V17.11L19.05,20.13L19.95,18.34L19.11,17.92L21.55,13.04C22.44,12.7 23.06,11.85 23.06,10.87V7.94C23.06,7.22 22.71,6.58 22.17,6.2L22.17,5.22L21.73,5L19.5,9.5L20.38,9.94L17.94,14.82C17.4,14.54 16.8,14.42 16.19,14.46L14,10.66L14,7L12,7Z" />
+                    </svg>
+                    <h2>Yacht Ops</h2>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="features" id="features">
+        <div class="section-header">
+            <h2 class="en">Everything You Need onboard</h2>
+            <h2 class="he">הכל נמצא כאן לשימושך</h2>
+            <p class="en">Manage every aspect of your vessel with our comprehensive suite of tools.</p>
+            <p class="he">נהל כל היבט של הכלי שייט שלך עם הסט המקיף שלנו.</p>
+        </div>
+
+        <div class="features-grid">
+            <!-- Feature 1 -->
+            <div class="feature-card">
+                <div class="icon-box">
+                    <svg viewBox="0 0 24 24">
+                        <path
+                            d="M2 12A10 10 0 1 0 12 2A10 10 0 0 0 2 12M15.5 6.5L11 15.5L6.5 11L15.5 6.5M11 11.5A.5.5 0 1 0 11.5 11A.5.5 0 0 0 11 11.5Z" />
+                    </svg>
+                </div>
+                <h3 class="feature-title en">Voyage Management</h3>
+                <h3 class="feature-title he">ניהול מסעות</h3>
+                <p class="feature-desc en">Log every journey with detailed entries, including departure/arrival times,
+                    crew on board, and notes. Keep a digital history of your maritime adventures.</p>
+                <p class="feature-desc he">תעד כל מסע עם פירוט מלא – זמני יציאה וחזרה, רשימת אנשי הצוות והערות. שמור
+                    תיעוד דיגיטלי מלא מסודר של כל ההפלגות.</p>
+            </div>
+
+            <!-- Feature 2 -->
+            <div class="feature-card">
+                <div class="icon-box">
+                    <svg viewBox="0 0 24 24">
+                        <path
+                            d="M22.7,19L13.6,9.9C14.5,7.6 14,4.9 12.1,3C10.1,1 7.1,0.6 4.7,1.7L9,6L6,9L1.6,4.7C0.4,7.1 0.9,10.1 2.9,12.1C4.8,14 7.5,14.5 9.8,13.6L18.9,22.7C19.3,23.1 19.9,23.1 20.3,22.7L22.6,20.4C23.1,20 23.1,19.3 22.7,19Z" />
+                    </svg>
+                </div>
+                <h3 class="feature-title en">Maintenance & Repairs</h3>
+                <h3 class="feature-title he">תחזוקה ותיקונים</h3>
+                <p class="feature-desc en">Never miss a service again. Track open issues, schedule routine checks, and
+                    manage repairs efficiently. Assign tasks to specific crew members.</p>
+                <p class="feature-desc he">לעולם לא תפספס טיפולים. תעקוב אחרי תקלות בטיפול, קבע בדיקות תקופתיות ונהל
+                    תיקונים בצורה אפקטיבית – כולל חלוקת משימות לצוות.</p>
+            </div>
+
+            <!-- Feature 3 -->
+            <div class="feature-card">
+                <div class="icon-box">
+                    <svg viewBox="0 0 24 24">
+                        <path
+                            d="M11 8H13V16H11V8M7.5 14H9V16H7.5V14M15 14H16.5V16H15V14M20 6H17.82C17.39 4.34 15.89 3 14 3H10C8.11 3 6.61 4.34 6.18 6H4C2.9 6 2 6.9 2 8V20C2 21.11 2.9 22 4 22H20C21.11 22 22 21.11 22 20V8C22 6.9 21.11 6 20 6M10 5H14C14.55 5 15 5.45 15 6H9C9 5.45 9.45 5 10 5M20 20H4V8H20V20Z" />
+                    </svg>
+                </div>
+                <h3 class="feature-title en">Equipment Inventory</h3>
+                <h3 class="feature-title he">מלאי ציוד</h3>
+                <p class="feature-desc en">Catalog your onboard equipment with photos, serial numbers, and location
+                    details. Know exactly what you have and where it is at all times.</p>
+                <p class="feature-desc he">קטלג ציוד שעל הסירה עם עדויות, תמונות, מספרים סידוריים ופרטי מיקום מדויקים.
+                    תמיד תדע מה יש לך והיכן כל דבר נמצא.</p>
+            </div>
+
+            <!-- Feature 4 -->
+            <div class="feature-card">
+                <div class="icon-box">
+                    <svg viewBox="0 0 24 24">
+                        <path
+                            d="M12,2C15.86,2 19,5.13 19,9C19,14.25 12,22 12,22C12,22 5,14.25 5,9A7,7 0 0,1 12,2M12,11.5A2.5,2.5 0 0,0 14.5,9A2.5,2.5 0 0,0 12,6.5A2.5,2.5 0 0,0 9.5,9A2.5,2.5 0 0,0 12,11.5Z" />
+                    </svg>
+                </div>
+                <h3 class="feature-title en">Marina Directory</h3>
+                <h3 class="feature-title he">מדריך מרינות</h3>
+                <p class="feature-desc en">Access a comprehensive database of marinas and anchorages. Store crucial
+                    information like VHF channels, contact details, and facilities.</p>
+                <p class="feature-desc he">גישה למאגר מעולה של מרינות ומעגנים. שמור מידע קריטי כמו תדרי ערוץ ה-VHF, פרטי
+                    התקשרות, ומתקנים ביעדים מועדפים.</p>
+            </div>
+
+            <!-- Feature 5 -->
+            <div class="feature-card">
+                <div class="icon-box">
+                    <svg viewBox="0 0 24 24">
+                        <path
+                            d="M18 1H6C4.89 1 4 1.89 4 3V21H20V3C20 1.89 19.11 1 18 1M18 19H6V3H18V19M8 5H16V7H8V5M8 9H16V11H8V9M8 13H16V15H8V13Z" />
+                    </svg>
+                </div>
+                <h3 class="feature-title en">Knowledge Base</h3>
+                <h3 class="feature-title he">מאגר מידע</h3>
+                <p class="feature-desc en">A central hub for essential maritime information. From flag etiquette to
+                    emergency procedures, keep vital knowledge at your fingertips.</p>
+                <p class="feature-desc he">מרכז יחיד עבור מידע ימי חיוני – מכללי דגלים ועד פרוצדורות חירום שנועדו לשמור
+                    על בטיחות מקסימלית ותגובה מהירה.</p>
+            </div>
+
+            <!-- Feature 6 -->
+            <div class="feature-card">
+                <div class="icon-box">
+                    <svg viewBox="0 0 24 24">
+                        <path
+                            d="M16 11C17.66 11 19 9.66 19 8C19 6.34 17.66 5 16 5C14.34 5 13 6.34 13 8C13 9.66 14.34 11 16 11M16 13C13.67 13 9 14.17 9 16.5V19H23V16.5C23 14.17 18.33 13 16 13M8 11C9.66 11 11 9.66 11 8C11 6.34 9.66 5 8 5C6.34 5 5 6.34 5 8C5 9.66 6.34 11 8 11M8 13C5.67 13 1 14.17 1 16.5V19H7V16.5C7 15.34 7.64 14.1 9.25 13.25C8.82 13.09 8.35 13 8 13Z" />
+                    </svg>
+                </div>
+                <h3 class="feature-title en">Crew Coordination</h3>
+                <h3 class="feature-title he">ניהול צוות</h3>
+                <p class="feature-desc en">Manage your team effectively. Assign roles, track certifications, and ensure
+                    everyone is on the same page.</p>
+                <p class="feature-desc he">תנהל את הצוות שלך ביעילות. קבע תפקידים, עקוב אחרי כל הרישיונות המוסמכים ושמור
+                    שכולם מיושרים מקצועית.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta">
+        <div class="cta-bg"></div>
+        <h2 class="en">Set sail with confidence</h2>
+        <h2 class="he">תצא לים בביטחון</h2>
+        <p class="en">Join an elite class of mariners managing their vessels effortlessly with Yacht Ops.</p>
+        <p class="he">הצטרף למועדון אקסקלוסיבי של קפטנים המנהלים את כלי השייט שלהם בלי להתאמץ עם Yacht Ops.</p>
+        <a href="#" class="download-btn">
+            <svg viewBox="0 0 384 512">
+                <path
+                    d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z" />
+            </svg>
+            <span class="en">Download Now</span>
+            <span class="he">הורד עכשיו</span>
+        </a>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">Yacht Ops</div>
+            <div class="footer-links">
+                <a href="#features" class="en">Features</a>
+                <a href="#features" class="he">פיצ'רים</a>
+                <a href="https://hagayj.github.io/yachtops-privacy/" target="_blank" class="en">Privacy Policy</a>
+                <a href="https://hagayj.github.io/yachtops-privacy/" target="_blank" class="he">מדיניות פרטיות</a>
+                <a href="mailto:hagay.jiv@gmail.com" class="en">Contact</a>
+                <a href="mailto:hagay.jiv@gmail.com" class="he">צור קשר</a>
+            </div>
+            <div class="copyright en">&copy; 2026 Yacht Ops. All rights reserved.</div>
+            <div class="copyright he">&copy; 2026 Yacht Ops. כל הזכויות שמורות.</div>
+        </div>
+    </footer>
+
+    <script>
+        function toggleLanguage() {
+            const htmlTag = document.documentElement;
+            if (htmlTag.getAttribute('lang') === 'en') {
+                htmlTag.setAttribute('lang', 'he');
+                htmlTag.setAttribute('dir', 'rtl');
+            } else {
+                htmlTag.setAttribute('lang', 'en');
+                htmlTag.setAttribute('dir', 'ltr');
+            }
+        }
+    </script>
+</body>
+
+</html>
